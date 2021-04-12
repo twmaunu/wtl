@@ -66,7 +66,7 @@ while k<maxiter && seq_dist > tol
         end      
     elseif opt == 2   
         % shrinking s
-        step = s/sqrt(k);
+        step = s;
         Vkt = Vk*W*diag(cos(diag(Sigma*step))) + U*diag(sin(diag(Sigma*step)));
         Vk = Vkt;
         if mod(k,50)==0
