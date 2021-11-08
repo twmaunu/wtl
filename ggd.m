@@ -37,13 +37,12 @@ while k<maxiter && seq_dist > tol
     % calculate gradient
     X_dot_vk = X * Vk;
     dists = sum((X' - Vk * (Vk' * X')).^2).^.5;
-    dists(dists == 0 ) = inf;   % points on subspace contribute 0
+    dists(dists < 1e-12 ) = inf;   % points on subspace contribute 0
     dists = repmat(dists',1,d);
     scale = X_dot_vk ./ dists;
-    derFvk = zeros(d,D);
-    for j=1:d
-        derFvk(j,:) = sum(X .* repmat(scale(:,j),1,D));
-    end
+    
+    derFvk = (X' * scale)';
+    
     % gradient is projected derivative
     gradFvk = derFvk' - Vk * (Vk' * derFvk');
     
