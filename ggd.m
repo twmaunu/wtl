@@ -23,8 +23,8 @@ addpath('random pca')
 
 [N,D] = size(X);
 
-[u0,s0,v0] = randpca(X,d);
-Vk = v0;
+[u0,s0,v0] = svd(X);
+Vk = v0(:, 1:d);
 
 tol = 1e-10;
 Vprev = Vk;
